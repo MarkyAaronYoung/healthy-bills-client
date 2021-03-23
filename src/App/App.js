@@ -7,28 +7,30 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import AuthHome from '../components/pages/AuthHome/AuthHome';
+import Home from '../components/pages/Home/Home';
+import Dashboard from '../components/pages/LandingPage/Dashboard';
 import TheNavbar from '../components/pages/Navbar/Navbar';
 import './App.scss';
 
 const PublicRoute = ({ component: Component, authed, ...rest }) => {
   const routeChecker = (props) => (authed === false
     ? (<Component {...props} {...rest} />)
-    : (<Redirect to={{ pathname: '/authhome', state: { from: props.location } }} />));
+    : (<Redirect to={{ pathname: '/home', state: { from: props.location } }} />));
   return <Route {...rest} render={(props) => routeChecker(props)} />;
 };
 const PrivateRoute = ({ component: Component, authed, ...rest }) => {
   const routeChecker = (props) => (authed === true
     ? (<Component {...props} {...rest} />)
-    : (<Redirect to={{ pathname: '/landingPage', state: { from: props.location } }} />));
+    : (<Redirect to={{ pathname: '/dashboard', state: { from: props.location } }} />));
   return <Route {...rest} render={(props) => routeChecker(props)} />;
 };
 
 const RoutesContainer = ({ authed, authToggle }) => (
   <div>
     <Switch>
-      <PrivateRoute path="/authhome" component={AuthHome} authed={authed}/>
-      <Redirect from='*' to='/authhome' />
+      <PrivateRoute path="/dashboard" component={Dashboard} authed={authed}/>
+      <PrivateRoute path="/home" component={Home} authed={authed}/>
+      <Redirect from='*' to='/home' />
     </Switch>
   </div>
 );

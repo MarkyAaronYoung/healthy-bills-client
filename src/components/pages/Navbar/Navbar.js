@@ -37,7 +37,7 @@ render() {
       return (
         <Nav className="mr-auto" navbar>
           <NavItem>
-            <NavLink tag={RRNavLink} to='/authhome'>Home</NavLink>
+            <NavLink tag={RRNavLink} to='/home'>Home</NavLink>
           </NavItem>
         </Nav>
       );
