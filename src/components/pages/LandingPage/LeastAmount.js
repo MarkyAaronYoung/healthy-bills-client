@@ -15,14 +15,14 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Deposits() {
+export default function LeastAmount() {
   const classes = useStyles();
   const [billAmount, setBillAmount] = useState(0);
 
   useEffect(() => {
-    billData.getBillAmounts()
+    billData.getLeastAmounts()
       .then((res) => {
-        setBillAmount(res.data.amount__sum);
+        setBillAmount(res.data.least_amount__sum);
         console.log(billAmount);
       })
       .catch((err) => console.error(err));
@@ -30,7 +30,7 @@ export default function Deposits() {
 
   return (
     <React.Fragment>
-      <Title>Total Bill Amount</Title>
+      <Title>Total Least Amount Due Monthly</Title>
       <Typography component="p" variant="h4">{ billAmount }</Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
         on 15 March, 2019
