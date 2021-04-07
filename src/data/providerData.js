@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const url = 'http://localhost:8000';
 
 const headers = () => (
@@ -22,3 +24,7 @@ const deleteProviders = (id) => axios.delete(`${url}/providers/${id}`, headers()
 const addProviders = (obj) => axios.post(`${url}/providers`, obj, createHeaders);
 
 const updateProviders = (obj, id) => axios.put(`${url}/providers/${id}`, obj, createHeaders);
+
+export default {
+  getAllProviders, deleteProviders, addProviders, updateProviders,
+};
