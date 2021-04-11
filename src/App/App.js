@@ -10,6 +10,7 @@ import {
 import Home from '../components/pages/Home/Home';
 import Dashboard from '../components/pages/LandingPage/Dashboard';
 import TheNavbar from '../components/pages/Navbar/Navbar';
+import Register from '../components/pages/Register/Register';
 import './App.scss';
 
 const PublicRoute = ({ component: Component, authed, ...rest }) => {
@@ -19,9 +20,10 @@ const PublicRoute = ({ component: Component, authed, ...rest }) => {
   return <Route {...rest} render={(props) => routeChecker(props)} />;
 };
 const PrivateRoute = ({ component: Component, authed, ...rest }) => {
+  console.log(authed);
   const routeChecker = (props) => (authed === true
     ? (<Component {...props} {...rest} />)
-    : (<Redirect to={{ pathname: '/dashboard', state: { from: props.location } }} />));
+    : (<Redirect to={{ pathname: '/home', state: { from: props.location } }} />));
   return <Route {...rest} render={(props) => routeChecker(props)} />;
 };
 
@@ -30,6 +32,7 @@ const RoutesContainer = ({ authed, authToggle }) => (
     <Switch>
       <PrivateRoute path="/dashboard" component={Dashboard} authed={authed}/>
       <PrivateRoute path="/home" component={Home} authed={authed}/>
+      <PublicRoute path="/register" component={Register} authed={authed} authToggle={authToggle}/>
       <Redirect from='*' to='/home' />
     </Switch>
   </div>
