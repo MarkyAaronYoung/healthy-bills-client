@@ -4,8 +4,8 @@ import TableHead from '@material-ui/core/TableHead';
 import {
   Collapse, Button, CardBody, Card,
 } from 'reactstrap';
-
 import SingleBill from './SingleBill';
+import Billform from './billForm';
 import billData from '../../../data/billData';
 
 class Bills extends React.Component {
@@ -29,7 +29,7 @@ class Bills extends React.Component {
   submitBill = (e) => {
     e.preventDefault();
     const { label, updating, billId } = this.state;
-    const bill = { label };
+    const bill = {};
     const jsonBill = JSON.stringify(bill);
 
     if (updating) {
@@ -57,13 +57,15 @@ class Bills extends React.Component {
 
   render() {
     const { bills, isOpen, label } = this.state;
+    console.log(bills);
     const { history } = this.props;
-    const buildBills = bills.map((bill) => <SingleBill bill={bill} getBillData={this.getBillData} updateThisBill={this.updateThisBill} history={history} key={bill.id} />);
+    // eslint-disable-next-line max-len
+    const buildBills = bills.map((bill) => <SingleBill label={bill.label} amount={bill.amount} least_amount={bill.least_amount} bill_date={bill.bill_date} name_on_acct={bill.name_on_acct} acct_number={bill.acct_number} getBillData={this.getBillData} updateThisBill={this.updateThisBill} history={history} key={bill.id} />);
 
     const toggle = () => this.setState({ isOpen: !isOpen });
 
     return (
-      <Table>
+        <Table>
         <TableHead>
           <h1> Bill Management</h1>
         </TableHead>
@@ -72,13 +74,14 @@ class Bills extends React.Component {
               <Collapse isOpen={isOpen}>
               <Card>
                 <CardBody>
-                <form>
+                    <Billform />
+                {/* <form>
                     <div className="form-group">
                       <label htmlFor="tagName">Bill Name:</label>
                       <input type="tagName" onChange={this.billUpdate} value={label} className="form-control" aria-describedby="emailHelp" />
                     </div>
                     <button onClick={this.submitBill} className="btn btn-primary">Submit</button>
-                  </form>
+                  </form> */}
                 </CardBody>
               </Card>
             </Collapse>
@@ -86,6 +89,10 @@ class Bills extends React.Component {
           { buildBills }
       </Table>
     );
+  }
+
+  useReducer() {
+    return React.useState;
   }
 }
 

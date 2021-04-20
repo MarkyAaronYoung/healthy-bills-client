@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,6 +11,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import userData from '../../../data/userData';
 
 function Copyright() {
   return (
@@ -58,8 +59,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+export default function SignInSide(props) {
   const classes = useStyles();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const signIn = (e) => {
+    e.preventDefault();
+
+    const user = {
+      email,
+      password,
+    };
+    const jsonUser = JSON.stringify(user);
+
+    userData.authUser(jsonUser)
+      .then((res) => {
+        if (res.data.valid === true) {
+          localStorage.setItem('authed', true);
+          localStorage.setItem('token', res.data.token);
+          localStorage.setItem('user_id', res.data.user_id);
+          props.authToggle();
+          props.history.push('/dashboard');
+        } else {
+          console.error('incorrect password and/or username');
+        }
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const emailUpdate = (e) => {
+    e.preventDefault();
+    setEmail(`${e.target.value}`);
+  };
+
+  const passwordUpdate = (e) => {
+    e.preventDefault();
+    setPassword(`${e.target.value}`);
+  };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -83,6 +120,7 @@ export default function SignInSide() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={emailUpdate}
             />
             <TextField
               variant="outlined"
@@ -94,6 +132,7 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={passwordUpdate}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -105,6 +144,7 @@ export default function SignInSide() {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={signIn}
             >
               Sign In
             </Button>
