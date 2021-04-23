@@ -12,6 +12,7 @@ import Dashboard from '../components/pages/LandingPage/Dashboard';
 import TheNavbar from '../components/pages/Navbar/Navbar';
 import Register from '../components/pages/Register/Register';
 import Bills from '../components/pages/Bills/Bills';
+import EditBills from '../components/pages/Bills/EditBill';
 
 import './App.scss';
 
@@ -35,6 +36,7 @@ const RoutesContainer = ({ authed, authToggle }) => (
       <PrivateRoute path="/dashboard" component={Dashboard} authed={authed}/>
       <PrivateRoute path="/home" component={Home} authed={authed} authToggle={authToggle}/>
       <PrivateRoute path="/bills" component={Bills} authed={authed}/>
+      <PrivateRoute path="/bills/edit" component={EditBills} authed={authed}/>
       <PublicRoute path="/register" component={Register} authed={authed} authToggle={authToggle}/>
       <Redirect from='*' to='/home' />
     </Switch>

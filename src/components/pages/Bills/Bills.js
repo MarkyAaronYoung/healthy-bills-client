@@ -60,7 +60,7 @@ class Bills extends React.Component {
     console.log(bills);
     const { history } = this.props;
     // eslint-disable-next-line max-len
-    const buildBills = bills.map((bill) => <SingleBill label={bill.label} amount={bill.amount} least_amount={bill.least_amount} bill_date={bill.bill_date} name_on_acct={bill.name_on_acct} acct_number={bill.acct_number} getBillData={this.getBillData} updateThisBill={this.updateThisBill} history={history} key={bill.id} />);
+    const buildBills = bills.map((bill) => <SingleBill label={bill.label} amount={bill.amount} least_amount={bill.least_amount} bill_date={bill.bill_date} name_on_acct={bill.name_on_acct} acct_number={bill.acct_number} provider_id={bill.provider.provider_name} BillData={this.getBillData} updateThisBill={this.updateThisBill} history={history} key={bill.id} />);
 
     const toggle = () => this.setState({ isOpen: !isOpen });
 
@@ -74,7 +74,7 @@ class Bills extends React.Component {
               <Collapse isOpen={isOpen}>
               <Card>
                 <CardBody>
-                    <Billform />
+                    <Billform getBillData={this.getBillData}/>
                 {/* <form>
                     <div className="form-group">
                       <label htmlFor="tagName">Bill Name:</label>
