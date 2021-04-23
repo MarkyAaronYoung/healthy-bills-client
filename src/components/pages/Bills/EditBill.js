@@ -56,36 +56,18 @@ export default function BillForm(props) {
     const data = { formInput };
 
     const jsonBill = JSON.stringify(formInput);
-    billData.addBills(jsonBill)
+    billData.updateBills(jsonBill)
       .then((res) => {
         props.getBillData();
       })
-      .catch((err) => console.error('create bills broke', err));
+      .catch((err) => console.error('update bills broke', err));
   };
-
-  //     fetch('https://pointy-gauge.glitch.me/api/form', {
-  //       method: 'POST',
-  //       body: JSON.stringify(data),
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     })
-  //       .then((response) => response.json())
-  //       // eslint-disable-next-line no-console
-  //       .then((response) => console.log('Success:', JSON.stringify(response)))
-  //       .catch((error) => console.error('Error:', error));
-  //   };
 
   const handleInput = (evt) => {
     const { name } = evt.target;
     const newValue = evt.target.value;
     setFormInput({ [name]: newValue });
   };
-
-  //   const changeAcctNumber = (e) => {
-  //     e.preventDefault();
-  //     this.setState({ content: e.target.value });
-  //   };
 
   const classes = useStyles();
 
@@ -158,7 +140,7 @@ export default function BillForm(props) {
             color="primary"
             className={classes.button}
           >
-            Submit <Icon className={classes.rightIcon}>send</Icon>
+            Update <Icon className={classes.rightIcon}>send</Icon>
           </Button>
         </form>
       </Paper>
