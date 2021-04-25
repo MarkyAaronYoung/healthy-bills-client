@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect, useState } from 'react';
 import {
   Button, Icon, TextField, Paper, Typography,
 } from '@material-ui/core';
@@ -8,7 +8,7 @@ import moment from 'moment';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 import billData from '../../../data/billData';
 // eslint-disable-next-line import/prefer-default-export
-export default function BillForm(props) {
+export default function EditBill(props) {
   const useStyles = makeStyles((theme) => ({
     button: {
       margin: theme.spacing(1),
@@ -56,12 +56,22 @@ export default function BillForm(props) {
     const data = { formInput };
 
     const jsonBill = JSON.stringify(formInput);
-    billData.updateBills(jsonBill)
+    const { billId } = props.match.params;
+    billData.updateBills(jsonBill, billId)
       .then((res) => {
-        props.getBillData();
+        props.history.push('/bills');
       })
       .catch((err) => console.error('update bills broke', err));
   };
+
+  useEffect(() => {
+    billData.getBillsById(props.match.params.billId)
+      .then((res) => {
+        // const bill = res.data;
+        console.log(props.match.params.billId);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   const handleInput = (evt) => {
     const { name } = evt.target;

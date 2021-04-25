@@ -29,6 +29,8 @@ const addBills = (obj) => axios.post(`${url}/bills`, obj, createHeaders);
 
 const updateBills = (obj, id) => axios.put(`${url}/bills/${id}`, obj, createHeaders);
 
+const getBillsById = (id) => axios.get(`${url}/bills/${id}`, createHeaders);
+
 export default {
-  getBillAmounts, getLeastAmounts, getAllBills, addBills, deleteBills, updateBills,
+  getBillAmounts, getLeastAmounts, getAllBills, addBills, deleteBills, updateBills, getBillsById,
 };

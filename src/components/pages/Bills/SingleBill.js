@@ -20,11 +20,10 @@ class SingleBill extends React.Component {
 
   deleteBill = (e) => {
     e.preventDefault();
-    const { bill, getBillData } = this.props;
-    console.error(bill.id);
-    billData.deleteBills(bill.id)
+    const { id } = this.props;
+    billData.deleteBills(id)
       .then(() => {
-        getBillData();
+        this.props.getBillData();
       })
       .catch((err) => console.error(err));
   }
@@ -47,9 +46,9 @@ class SingleBill extends React.Component {
 
   render() {
     const {
-      amount, least_amount, bill_date, name_on_acct, acct_number, provider_id,
+      amount, least_amount, bill_date, name_on_acct, acct_number, provider_id, id,
     } = this.props;
-    const editBillLink = '/bills/edit';
+    const editBillLink = `/bills/${id}/edit`;
 
     return (
     <React.Fragment>
