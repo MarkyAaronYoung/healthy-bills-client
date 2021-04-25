@@ -35,8 +35,8 @@ const RoutesContainer = ({ authed, authToggle }) => (
     <Switch>
       <PrivateRoute path="/dashboard" component={Dashboard} authed={authed}/>
       <PrivateRoute path="/home" component={Home} authed={authed} authToggle={authToggle}/>
+      <PrivateRoute path="/bills/:billId/edit" component={EditBills} authed={authed}/>
       <PrivateRoute path="/bills" component={Bills} authed={authed}/>
-      <PrivateRoute path="/bills/edit" component={EditBills} authed={authed}/>
       <PublicRoute path="/register" component={Register} authed={authed} authToggle={authToggle}/>
       <Redirect from='*' to='/home' />
     </Switch>
